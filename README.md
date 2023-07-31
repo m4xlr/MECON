@@ -1,4 +1,5 @@
-# MECON
+![Logo](mecon_logo.png)
+
 Motion
 Engines
 Computed

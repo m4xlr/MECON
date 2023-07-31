@@ -18,7 +18,7 @@ const double a_set=100.0; //ACELERACION DE SETEO
 
 const double vel=1000.0; //VELOCIDAD EN FUNCIONAMIENTO
 const double acel=1000.0; //ACELERACION EN FUNCIONAMIENTO
-
+long stop; 
 //*Variables para comunicacion I2C
 const int i2c_address=8; // Direccion del slave en i2c
 int listo=0; //variable contador de confirmacion
@@ -87,10 +87,9 @@ void LaunchOk(){
       {
         while (stepperX.isRunning())
         {
-        delay(200);
+        delay(1000);
         }
-        listo=2;
-        Wire.write(listo);
+        Wire.write(2);
         Serial.println("listo enviado");
       }
     listo=1;
@@ -104,7 +103,14 @@ void Master_says (int numBytes){
   Serial.print(paso);
   Serial.print(" ->");
   Serial.print(steps);
-  stepperX.runToNewPosition(steps);
+  //stepperX.runToNewPosition(steps);
+  stepperX.moveTo(steps);
+  stop = steps - long(acel);
+  while (stepperX.currentPosition() != stop)
+  {
+    stepperX.run();
+  }
+  stepperX.stop();
 }
 
 //*LOOP
