@@ -1,0 +1,32 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "/Users/max/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "/Users/max/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/mega"
+  },
+  {
+    "Sourcefile": "/Users/max/Documents/LIMA MAKERS/CLIENTES/LA FOLIE/RELOAD/DIEGO/master03/build/sketch/master03.ino.cpp",
+    "Include": "Wire.h",
+    "Includepath": "/Users/max/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/libraries/Wire/src"
+  },
+  {
+    "Sourcefile": "/Users/max/Documents/LIMA MAKERS/CLIENTES/LA FOLIE/RELOAD/DIEGO/master03/build/sketch/master03.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/Users/max/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/libraries/Wire/src/Wire.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/Users/max/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/libraries/Wire/src/utility/twi.c",
+    "Include": "",
+    "Includepath": null
+  }
+]

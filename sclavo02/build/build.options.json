@@ -1,0 +1,11 @@
+{
+  "additionalFiles": "../../..,../../..",
+  "builtInToolsFolders": "",
+  "compiler.optimization_flags": "",
+  "customBuildProperties": "",
+  "fqbn": "arduino:avr:nano:cpu=atmega328",
+  "hardwareFolders": "/Users/max/Library/Arduino15/packages",
+  "otherLibrariesFolders": "/Users/max/Documents/Arduino/libraries",
+  "runtime.ide.version": "10607",
+  "sketchLocation": "/Users/max/Documents/LIMA MAKERS/CLIENTES/LA FOLIE/RELOAD/DIEGO/sclavo02"
+}

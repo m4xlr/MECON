@@ -1,0 +1,7 @@
+#line 1 "/Users/max/Documents/LIMA MAKERS/CLIENTES/LA FOLIE/RELOAD/DIEGO/sclavo02/.vscode/arduino.json"
+{
+    "sketch": "sclavo02.ino",
+    "output": "build",
+    "configuration": "cpu=atmega328",
+    "board": "arduino:avr:nano"
+}

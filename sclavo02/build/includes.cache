@@ -1,0 +1,47 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "/Users/max/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "/Users/max/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/eightanaloginputs"
+  },
+  {
+    "Sourcefile": "/Users/max/Documents/LIMA MAKERS/CLIENTES/LA FOLIE/RELOAD/DIEGO/sclavo02/build/sketch/sclavo02.ino.cpp",
+    "Include": "AccelStepper.h",
+    "Includepath": "/Users/max/Documents/Arduino/libraries/AccelStepper/src"
+  },
+  {
+    "Sourcefile": "/Users/max/Documents/LIMA MAKERS/CLIENTES/LA FOLIE/RELOAD/DIEGO/sclavo02/build/sketch/sclavo02.ino.cpp",
+    "Include": "Wire.h",
+    "Includepath": "/Users/max/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/libraries/Wire/src"
+  },
+  {
+    "Sourcefile": "/Users/max/Documents/LIMA MAKERS/CLIENTES/LA FOLIE/RELOAD/DIEGO/sclavo02/build/sketch/sclavo02.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/Users/max/Documents/Arduino/libraries/AccelStepper/src/AccelStepper.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/Users/max/Documents/Arduino/libraries/AccelStepper/src/MultiStepper.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/Users/max/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/libraries/Wire/src/Wire.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/Users/max/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/libraries/Wire/src/utility/twi.c",
+    "Include": "",
+    "Includepath": null
+  }
+]

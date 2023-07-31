@@ -1,0 +1,7 @@
+#line 1 "/Users/max/Documents/LIMA MAKERS/CLIENTES/LA FOLIE/RELOAD/DIEGO/master03/.vscode/arduino.json"
+{
+    "sketch": "master03.ino",
+    "output": "build",
+    "configuration": "cpu=atmega2560",
+    "board": "arduino:avr:mega"
+}
