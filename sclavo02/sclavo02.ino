@@ -76,24 +76,22 @@ void setup() {
 
 //*FUNCION DE CONFIRMACION
 void LaunchOk(){
-  if (listo==0)
+  while (listo==0)
   {
     listo=1;
-    Wire.write(listo);
-    Serial.println("Launch enviado!");
+    Wire.write(1);
+    Serial.println('Launch enviado!');
   }
-  else{
-    if (listo==1)
+  if (listo==1)
       {
-        while (stepperX.isRunning())
+        delay(1000);//tiempo para que reaccione el stepper [PATCH]
+        while (stepperX.distanceToGo()!= 0)
         {
-        delay(1000);
+        delay(500);
         }
         Wire.write(2);
         Serial.println("listo enviado");
       }
-    listo=1;
-  }
 }
 
 void Master_says (int numBytes){
@@ -101,19 +99,19 @@ void Master_says (int numBytes){
   long steps = map(paso, -127,127,MAX_up,MAX_down);
   Serial.println("Recibido: ");
   Serial.print(paso);
-  Serial.print(" ->");
+  Serial.print(" transforma");
   Serial.print(steps);
-  //stepperX.runToNewPosition(steps);
-  stepperX.moveTo(steps);
-  stop = steps - long(acel);
-  while (stepperX.currentPosition() != stop)
-  {
-    stepperX.run();
-  }
-  stepperX.stop();
+  stepperX.runToNewPosition(steps);
+  //stepperX.moveTo(steps);
+  //stop = steps - long(acel);
+  //while (stepperX.currentPosition() != stop)
+  //{
+  //  stepperX.run();
+  //}
+  //stepperX.stop();
 }
 
 //*LOOP
 void loop() {
-  delay(200); //porsiacas
+  delay(500); //porsiacas
 }
