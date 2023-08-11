@@ -19,9 +19,11 @@ const double a_set=100.0; //ACELERACION DE SETEO
 const double vel=1000.0; //VELOCIDAD EN FUNCIONAMIENTO
 const double acel=1000.0; //ACELERACION EN FUNCIONAMIENTO
 long stop; 
+long steps;
 //*Variables para comunicacion I2C
 const int i2c_address=8; // Direccion del slave en i2c
 int listo=0; //variable contador de confirmacion
+int bits=1; //pta funciona pe
 
 //SETUP
 void setup() {
@@ -63,7 +65,6 @@ void setup() {
   stepperX.runToNewPosition(posicioncero);
   stepperX.setCurrentPosition(0);
   Serial.println("Homing Completed"); //Notificacion a serial [DEV]
-  Serial.println("");
   stepperX.setMaxSpeed(vel);      // Restauracion a velocidad normal
   stepperX.setAcceleration(acel);  // Restauracion a aceleracion normal
 
@@ -82,7 +83,7 @@ void LaunchOk(){
     Wire.write(1);
     Serial.println("Launch enviado!");
   }
-  if (listo==1)
+  /*if (listo==1)
       {
         delay(1000);//tiempo para que reaccione el stepper [PATCH]
         while (stepperX.distanceToGo()!= 0)
@@ -91,29 +92,29 @@ void LaunchOk(){
         }
         Wire.write(2);
         Serial.println("listo enviado");
-      }
+      }*/
 }
 
 void Master_says (int numBytes){
   int paso = Wire.read();
-  long steps = map(paso, -127,127,MAX_up,MAX_down);
   Serial.println("Recibido: ");
   Serial.print(paso);
-  Serial.print(" transforma ");
+  steps = map(long(paso), -127,127,MAX_up,MAX_down);
+  Serial.print(" transforma");
   Serial.print(steps);
   delay(1000);//delay para que el esclavo escriba los valores en el serial
-  //stepperX.runToNewPosition(steps); esta funcion lo caga todo
-  stepperX.moveTo(steps);
-  stop = steps - long(acel);
-  while (stepperX.currentPosition() != stop)
-  {
-    stepperX.run();
-  }
-  stepperX.stop();
+  //stepperX.runToNewPosition(steps);
+  
 }
 
 //*LOOP
 void loop() {
-  Serial.println("ciclo");
-  delay(4000); //porsiacas
+  stepperX.moveTo(steps);
+  //stop = steps - long(acel);
+  while (stepperX.distanceToGo() != 0)
+  {
+    stepperX.run();
+  }
+  //steps = 0; reset de steps a 0, no es necesario
+  delay(500); //porsiacas
 }

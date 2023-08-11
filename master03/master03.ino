@@ -99,7 +99,7 @@ void setup(){
             while (Wire.available() >= 1)
             {
                 listo = int(Wire.read());
-                Serial.print("valor recibido");
+                Serial.print("valor recibido: ");
                 Serial.println(listo);
             }
             delay(500); //Tiempo de espera para volver a solicitar
@@ -120,5 +120,4 @@ void setup(){
 void loop(){
     mandarPasos(baile);
     delay(1800000);//no hace nada por media hora
-    
 }
