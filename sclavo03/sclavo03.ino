@@ -83,16 +83,20 @@ void LaunchOk(){
     Wire.write(1);
     Serial.println("Launch enviado!");
   }
-  /*if (listo==1)
+  if (listo==1)
       {
         delay(1000);//tiempo para que reaccione el stepper [PATCH]
-        while (stepperX.distanceToGo()!= 0)
+        if (stepperX.currentPosition()!= steps)
         {
-        delay(500);
+          Wire.write(3);// porsiacaso 3 para no confundir con 1 de launch
+          Serial.println("aun no esta listo");
         }
-        Wire.write(2);
-        Serial.println("listo enviado");
-      }*/
+        else
+        {
+          Wire.write(2);
+          Serial.println("listo enviado");
+        }
+      }
 }
 
 void Master_says (int numBytes){
@@ -115,6 +119,6 @@ void loop() {
   {
     stepperX.run();
   }
-  //steps = 0; reset de steps a 0, no es necesario
+  //steps = 0; reset de steps a 0, no es necesario 
   delay(500); //porsiacas
 }
