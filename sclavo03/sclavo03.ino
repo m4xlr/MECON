@@ -9,21 +9,23 @@ AccelStepper stepperX(1, 5, 4);
 //*Variables para el stepper
 
 long initial_homing=-1;  // Usado para setear el final de carrera
-long posicioncero = 2000;  //* DEFINE LA POSICION INICIAL CON RESPECTO AL TOPE siempre en positivo
+long posicioncero = 2500;  //* DEFINE LA POSICION INICIAL CON RESPECTO AL TOPE siempre en positivo
 long margen = 200;// Margen de seguridad para que el punto mas alto no toque el final de carrera
 long MAX_up= margen - posicioncero;
 long MAX_down= posicioncero;
-const double v_set=100.0; //VELOCIDAD DE SETEO
+
+const double v_set=250.0; //VELOCIDAD DE SETEO
 const double a_set=100.0; //ACELERACION DE SETEO
 
-const double vel=1000.0; //VELOCIDAD EN FUNCIONAMIENTO
-const double acel=1000.0; //ACELERACION EN FUNCIONAMIENTO
+const double vel=1200.0; //VELOCIDAD EN FUNCIONAMIENTO
+const double acel=7000.0; //ACELERACION EN FUNCIONAMIENTO
 long stop; 
 long steps;
 //*Variables para comunicacion I2C
-const int i2c_address=8; // Direccion del slave en i2c
+const int i2c_address=12; // Direccion del slave en i2c (8=1, 9=2, 10=3, 11=4. 12=5)
 int listo=0; //variable contador de confirmacion
 int bits=1; //pta funciona pe
+int paso;
 
 //SETUP
 void setup() {
@@ -40,13 +42,13 @@ void setup() {
 
 // Start Homing procedure of Stepper Motor at startup
 
-  Serial.print("Stepper is Homing . . . . . . . . . . . "); //notificacion a serial [DEV]
+ // Serial.print("Stepper is Homing . . . . . . . . . . . "); //notificacion a serial [DEV]
 
   while (digitalRead(home_switch)) {  // Make the Stepper move CCW until the switch is activated   
     stepperX.moveTo(initial_homing);  // Set the position to move to
     initial_homing--;  // Decrease by 1 for next move if needed
     stepperX.run();  // Start moving the stepper
-    delay(5);
+    delay(4);
 }
 
   stepperX.setCurrentPosition(0);  // Set the current position as zero for now
@@ -58,13 +60,13 @@ void setup() {
     stepperX.moveTo(initial_homing);  
     stepperX.run();
     initial_homing++;
-    delay(5);
+    delay(4);
   }
   //SECUENCIA DE SETEO A POSICION CERO
   stepperX.setCurrentPosition(0);
   stepperX.runToNewPosition(posicioncero);
   stepperX.setCurrentPosition(0);
-  Serial.println("Homing Completed"); //Notificacion a serial [DEV]
+ // Serial.println("Homing Completed"); //Notificacion a serial [DEV]
   stepperX.setMaxSpeed(vel);      // Restauracion a velocidad normal
   stepperX.setAcceleration(acel);  // Restauracion a aceleracion normal
 
@@ -81,7 +83,7 @@ void LaunchOk(){
   {
     listo=1;
     Wire.write(1);
-    Serial.println("Launch enviado!");
+  //  Serial.println("Launch enviado!");
   }
   if (listo==1)
       {
@@ -89,36 +91,53 @@ void LaunchOk(){
         if (stepperX.currentPosition()!= steps)
         {
           Wire.write(3);// porsiacaso 3 para no confundir con 1 de launch
-          Serial.println("aun no esta listo");
+         // Serial.println("aun no esta listo");
         }
         else
         {
           Wire.write(2);
-          Serial.println("listo enviado");
+         // Serial.println("listo enviado");
         }
       }
 }
-
 void Master_says (int numBytes){
-  int paso = Wire.read();
-  Serial.println("Recibido: ");
-  Serial.print(paso);
+  paso = Wire.read();
+ Serial.println(paso);
+
+  // Serial.println("Recibido: ");
+ // Serial.print(paso);
   steps = map(long(paso), -127,127,MAX_up,MAX_down);
-  Serial.print(" transforma");
-  Serial.print(steps);
-  delay(1000);//delay para que el esclavo escriba los valores en el serial
-  //stepperX.runToNewPosition(steps);
+ 
+ // Serial.print(" transforma");
+  //Serial.print(steps);
+  delay(5);//delay para que el esclavo escriba los valores en el serial
+  
   
 }
 
 //*LOOP
 void loop() {
+   if (paso== 255){ //666 en paso + 127
+  stepperX.setMaxSpeed(1000);      // Set Max Speed of Stepper (Slower to get better accuracy)
+  stepperX.setAcceleration(250);  // Set Acceleration of Stepper
+ 
+    stepperX.moveTo(15000);
+     while (stepperX.distanceToGo() != 0)
+  {
+    stepperX.run();
+  }
+    Serial.println("Chau ");
+    while (true) {
+      // Bucle infinito, el programa se quedará estancado aquí
+      // hasta que reinicies manualmente el Arduino
+    }
+  }  
   stepperX.moveTo(steps);
   //stop = steps - long(acel);
   while (stepperX.distanceToGo() != 0)
   {
     stepperX.run();
   }
-  //steps = 0; reset de steps a 0, no es necesario 
-  delay(500); //porsiacas
+ // steps = 0;
+  delay(5); //porsiacas
 }
